@@ -1,13 +1,23 @@
 # spring-cloud-MSA-Service
 
 
-### discovery Service
+### Discovery Service
 - server.port: 8761
 
-### user Service
+### ApiGateway Service
+- server.port: 8000
+
+### First Service
+- server.port: 8001
+
+### Second Service
+- server.port: 8002
+
+### User Service 
 - server.port: 9001, 9002, 9003, 9004
 
-### springBoot run with gradlew
+---
+### gradlew run 
 - `./gradlew bootRun --args='--server.port=9003'`
 - `./gradlew bootRun`
 
