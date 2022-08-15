@@ -38,9 +38,10 @@ logging:
   level:
     msa.user: debug
 
-token:
-  expiration_time: 86400000
-  secret: spring-cloud-msa-architecture-in-user-login-service-for-jwt-manage-at-user-authorization-token
+# config server : ecommerce.yml 에 등록
+#token:
+#  expiration_time: 86400000
+#  secret: spring-cloud-msa-architecture-in-user-login-service-for-jwt-manage-at-user-authorization-token
 
 eureka:
   instance:
@@ -53,3 +54,9 @@ eureka:
 
 greeting:
   message: Welcome to the Simple E-commerce.
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans

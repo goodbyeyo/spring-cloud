@@ -1,0 +1,7 @@
+spring:
+  cloud:
+    config:
+      uri: http://127.0.0.1:8888  # config server ip:port
+      name: ecommerce   # config server에 등록한 yml 파일명
+  profiles:
+    active: prd

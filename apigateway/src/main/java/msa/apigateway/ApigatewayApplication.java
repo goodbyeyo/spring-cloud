@@ -1,7 +1,10 @@
 package msa.apigateway;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.trace.http.HttpTraceRepository;
+import org.springframework.boot.actuate.trace.http.InMemoryHttpTraceRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ApigatewayApplication {
@@ -10,4 +13,9 @@ public class ApigatewayApplication {
         SpringApplication.run(ApigatewayApplication.class, args);
     }
 
+    // HttpTrace 사용하기 위한 Bean 등록
+    @Bean
+    public HttpTraceRepository httpTraceRepository() {
+        return new InMemoryHttpTraceRepository();
+    }
 }

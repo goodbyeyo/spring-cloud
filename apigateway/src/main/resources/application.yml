@@ -70,6 +70,14 @@ spring:
             - RemoveRequestHeader=Cookie
             - RewritePath=/user-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
+        - id: user
+          uri: lb://USER
+          predicates:
+            - Path=/user-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
         - id: catalog
           uri: lb://CATALOG
           predicates:
@@ -99,3 +107,9 @@ spring:
 
 token:
   secret: spring-cloud-msa-architecture-in-user-login-service-for-jwt-manage-at-user-authorization-token
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, httptrace
