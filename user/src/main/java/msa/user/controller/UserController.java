@@ -1,7 +1,9 @@
 package msa.user.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import msa.user.dto.UserDto;
+import msa.user.entity.UserEntity;
 import msa.user.service.UserService;
 import msa.user.vo.Greeting;
 import msa.user.vo.RequestUser;
@@ -14,9 +16,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/")
+@Slf4j
 public class UserController {
 
     private final Environment env;
@@ -24,8 +31,10 @@ public class UserController {
     private final Greeting greeting;
 
     @GetMapping("/health_check")
-    public String status() {
-        return "It's Working in User Service";
+    public String check(HttpServletRequest request) {
+        log.info("Server port={}", request.getServerPort());
+        return String.format("It's Working in User Service. on PORT %s",
+                env.getProperty("local.server.port"));
     }
 
     @GetMapping("/welcome")
@@ -44,5 +53,23 @@ public class UserController {
 
         ResponseUser responseBody = mapper.map(userdto, ResponseUser.class);
         return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<ResponseUser>> getUserList() {
+        Iterable<UserEntity> userList = userService.getUserByAll();
+        List<ResponseUser> result = new ArrayList<>();
+        userList.forEach(r-> {
+            result.add(new ModelMapper().map(r, ResponseUser.class));
+        });
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+
+    @GetMapping("/users/{userId}")
+    public ResponseEntity<ResponseUser> getUserOne(@PathVariable("userId") String userId) {
+        UserDto userDto = userService.getUserByUserId(userId);
+        ResponseUser responseBody = new ModelMapper().map(userDto, ResponseUser.class);
+        return ResponseEntity.status(HttpStatus.OK).body(responseBody);
+
     }
 }

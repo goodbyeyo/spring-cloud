@@ -45,3 +45,57 @@ spring:
                 postLogger: true
 #            - AddRequestHeader=second-request, second-requests-header2
 #            - AddResponseHeader=second-response, second-response-header2
+        - id: user
+          uri: lb://USER
+          predicates:
+            - Path=/user-service/login
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user
+          uri: lb://USER
+          predicates:
+            - Path=/user-service/users
+            - Method=POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+        - id: user
+          uri: lb://USER
+          predicates:
+            - Path=/user-service/**
+            - Method=GET
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - AuthorizationHeaderFilter
+        - id: catalog
+          uri: lb://CATALOG
+          predicates:
+            - Path=/catalog-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/catalog-service/(?<segment>.*), /$\{segment}
+        - id: order
+          uri: lb://ORDER
+          predicates:
+            - Path=/order-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+#        - id: user
+#          uri: lb://USER
+#          predicates:
+#            - Path=/user-service/**
+#        - id: catalog
+#          uri: lb://CATALOG
+#          predicates:
+#            - Path=/catalog-service/**
+#        - id: order
+#          uri: lb://ORDER
+#          predicates:
+#            - Path=/order-service/**
+
+token:
+  secret: spring-cloud-msa-architecture-in-user-login-service-for-jwt-manage-at-user-authorization-token
