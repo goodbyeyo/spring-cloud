@@ -4,8 +4,27 @@ server:
 spring:
   application:
     name: config
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+  # native file system repository
+  profiles:
+    active: native
   cloud:
     config:
       server:
+        native:
+          search-locations: file://${user.home}/Study/config
         git:
           uri: file:///Users/wook/Study/spring-cloud/env
+#          uri: http://github/repository/....
+#          username: [name]
+#          password: [password]
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, busrefresh
