@@ -109,8 +109,8 @@ spring:
 #          predicates:
 #            - Path=/order-service/**
 
-token:
-  secret: spring-cloud-msa-architecture-in-user-login-service-for-jwt-manage-at-user-authorization-token
+#token:
+#  secret: spring-cloud-msa-architecture-in-user-login-service-for-jwt-manage-at-user-authorization-token
 
 management:
   endpoints:

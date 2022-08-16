@@ -9,12 +9,15 @@ spring:
     port: 5672
     username: admin
     password: admin
-  datasource:
-    hikari:
-      jdbc-url: jdbc:postgresql://localhost:5432/postgres
-      username: postgres
-      password: new1234!
-      driver-class-name: org.postgresql.Driver
+
+# config server -> user-service.yml
+
+#  datasource:
+#    hikari:
+#      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+#      username: postgres
+#      password: new1234!
+#      driver-class-name: org.postgresql.Driver
 #  h2:
 #    console:
 #      enabled: true

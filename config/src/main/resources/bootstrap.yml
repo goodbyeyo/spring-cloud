@@ -1,0 +1,6 @@
+encrypt:
+#  key: abcdefghijklmnopqrstuvwxyz0987654321
+  key-store:
+    location: file://${user.home}/Study/keystore/encryptStudyKey.jks
+    password: test1234
+    alias: encryptStudyKey
