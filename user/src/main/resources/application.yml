@@ -12,12 +12,13 @@ spring:
 
 # config server -> user-service.yml
 
-#  datasource:
-#    hikari:
-#      jdbc-url: jdbc:postgresql://localhost:5432/postgres
-#      username: postgres
-#      password: new1234!
-#      driver-class-name: org.postgresql.Driver
+  datasource:
+    hikari:
+      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+      username: postgres
+      password: new1234!
+      driver-class-name: org.postgresql.Driver
+
 #  h2:
 #    console:
 #      enabled: true
@@ -32,11 +33,15 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        dialect=org:
+          hibernate:
+            dialect: PostgreSQLDialect
   data:
     web:
       pageable:
         default-page-size: 10
         max-page-size: 2000
+
 
 logging.level:
   org.hibernate.SQL: debug
@@ -44,7 +49,7 @@ logging.level:
 
 logging:
   level:
-    msa.user: debug
+    msa.user.client: debug
 
 # config server : ecommerce.yml 에 등록
 #token:

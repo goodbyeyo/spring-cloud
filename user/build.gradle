@@ -51,6 +51,11 @@ dependencies {
     // bus-amqp
     implementation 'org.springframework.cloud:spring-cloud-starter-bus-amqp'
 
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    // implementation group: 'com.zaxxer', name: 'HikariCP', version: '2.3.2'
+
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
