@@ -2,6 +2,6 @@ spring:
   cloud:
     config:
       uri: http://127.0.0.1:8888  # config server ip:port
-      name: ecommerce   # config server -> config.yml
+      name: config   # config server -> config.yml
 #  profiles:
 #    active: dev

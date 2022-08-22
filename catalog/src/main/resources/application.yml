@@ -4,17 +4,31 @@ server:
 spring:
   application:
     name: catalog
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
   datasource:
     hikari:
       jdbc-url: jdbc:postgresql://localhost:5432/postgres
       username: postgres
       password: new1234!
       driver-class-name: org.postgresql.Driver
-  #  datasource:
-  #    driver-class-name: org.h2.Driver
-  #    url: jdbc:h2:mem:testdb
-#      username: sa
-#      password: 1234
+
+# mariaDB
+#    driver-class-name: org.mariadb.jdbc.Driver
+#    url: jdbc:mariadb://localhost:13306/msa
+#    #    url: jdbc:mysql://localhost:13306/msa
+#    username: root
+#    password: new1234!
+
+# h2
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
   jpa:
     hibernate:
       ddl-auto: update
@@ -33,6 +47,10 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+logging:
+  level:
+    msa.catalog: DEBUG
 
 eureka:
   instance:

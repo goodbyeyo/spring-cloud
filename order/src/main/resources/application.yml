@@ -4,18 +4,27 @@ server:
 spring:
   application:
     name: order
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
   datasource:
-    hikari:
-      jdbc-url: jdbc:postgresql://localhost:5432/postgres
-      username: postgres
-      password: new1234!
-      driver-class-name: org.postgresql.Driver
-  #  h2:
-  #    console:
-  #      enabled: true
-  #      settings:
-  #        web-allow-others: true
-  #      path: /h2-console
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:13306/msa
+    username: root
+    password: new1234!
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:mem:testdb
+#    username: sa
+#    password:
+
+#    hikari:
+#      jdbc-url: jdbc:postgresql://localhost:5432/postgres
+#      username: postgres
+#      password: new1234!
+#      driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
@@ -24,6 +33,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+#          dialect=org:
+#            hibernate:
+#              dialect: MySQL5InnoDBDialect
   data:
     web:
       pageable:
@@ -33,6 +45,10 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+logging:
+  level:
+    msa.order: DEBUG
 
 eureka:
   instance:

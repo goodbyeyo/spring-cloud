@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import msa.user.client.OrderServiceClient;
 import msa.user.dto.UserDto;
 import msa.user.entity.UserEntity;
+import msa.user.error.FeignErrorDecoder;
 import msa.user.repository.UserRepository;
 import msa.user.vo.ResponseOrder;
 import org.modelmapper.ModelMapper;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService{
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final Environment env;
-    //    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private final OrderServiceClient orderServiceClient;
 
     @Override
@@ -67,13 +68,17 @@ public class UserServiceImpl implements UserService{
         */
 
         // Using a feign client, and exception handling
+        /*
         List<ResponseOrder> orderList = null;
         try {
             orderList = orderServiceClient.getOrders(userDto.getUserId());
         } catch (FeignException.FeignClientException ex) {
             log.error(ex.getMessage());
         }
+        */
 
+        // Using ErrorDecoder
+        List<ResponseOrder> orderList = orderServiceClient.getOrders(userDto.getUserId());
         userDto.setOrders(orderList);
         return userDto;
     }

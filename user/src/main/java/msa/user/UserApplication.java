@@ -1,12 +1,14 @@
 package msa.user;
 
 import feign.Logger;
+import msa.user.error.FeignErrorDecoder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
@@ -29,9 +31,14 @@ public class UserApplication {
         return Logger.Level.FULL;
     }
 
+    @Bean
+    @LoadBalanced   // uri -> micro service name
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+
 //    @Bean
-//    @LoadBalanced   // uri -> micro service name
-//    public RestTemplate getRestTemplate() {
-//        return new RestTemplate();
+//    FeignErrorDecoder getFeignErrorDecoder() {
+//        return new FeignErrorDecoder();
 //    }
 }
